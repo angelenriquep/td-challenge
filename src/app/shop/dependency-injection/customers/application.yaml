@@ -1,0 +1,8 @@
+services:
+  Shop.Customer.domain.CustomerRepository:
+    class: ../../../../contexts/shop/customer/infrastructure/persistence/CustomerRepository
+    arguments: []
+
+  Mooc.Courses.application.CourseCreator:
+    class: ../../../../contexts/shop/customer/application/ShopCustomerCreator
+    arguments: ["@Shop.Customer.domain.CustomerRepository"]

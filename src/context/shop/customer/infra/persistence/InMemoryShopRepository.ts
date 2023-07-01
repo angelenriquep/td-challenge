@@ -1,43 +1,43 @@
 interface Customer {
-  id: string;
-  name: string;
-  email: string;
+  id: string
+  name: string
+  email: string
 }
 
 export class CustomerRepository {
-  private customers: Customer[];
+  private customers: Customer[]
 
-  constructor() {
-    this.customers = [];
+  constructor () {
+    this.customers = []
   }
 
-  getAllCustomers(): Customer[] {
-    return this.customers;
+  getAllCustomers (): Customer[] {
+    return this.customers
   }
 
-  getCustomerById(id: string): Customer | undefined {
-    return this.customers.find((customer) => customer.id === id);
+  getCustomerById (id: string): Customer | undefined {
+    return this.customers.find((customer) => customer.id === id)
   }
 
-  addCustomer(customer: Customer): void {
-    this.customers.push(customer);
+  addCustomer (customer: Customer): void {
+    this.customers.push(customer)
   }
 
-  updateCustomer(id: string, updatedCustomer: Customer): boolean {
-    const index = this.customers.findIndex((customer) => customer.id === id);
+  updateCustomer (id: string, updatedCustomer: Customer): boolean {
+    const index = this.customers.findIndex((customer) => customer.id === id)
     if (index !== -1) {
-      this.customers[index] = { ...updatedCustomer, id };
-      return true;
+      this.customers[index] = { ...updatedCustomer, id }
+      return true
     }
-    return false;
+    return false
   }
 
-  deleteCustomer(id: string): boolean {
-    const index = this.customers.findIndex((customer) => customer.id === id);
+  deleteCustomer (id: string): boolean {
+    const index = this.customers.findIndex((customer) => customer.id === id)
     if (index !== -1) {
-      this.customers.splice(index, 1);
-      return true;
+      this.customers.splice(index, 1)
+      return true
     }
-    return false;
+    return false
   }
 }

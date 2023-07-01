@@ -1,11 +1,11 @@
 export class ShopCustomerCreatedDate {
-  readonly value: Date;
+  readonly value: Date
 
-  constructor() {
-    this.value = new Date();
+  constructor () {
+    this.value = new Date()
   }
 
-  toString(): string {
-    return this.value.toISOString();
+  toString (): string {
+    return this.value.toISOString()
   }
 }

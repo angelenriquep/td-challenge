@@ -1,7 +1,10 @@
-import { ShopCustomer } from './ShopCustomer';
+import { ShopCustomer } from './ShopCustomer'
 
 // Keep interfaces always in api side, not client side
 export interface ShopCustomerRepository {
-  searchAll(): Promise<Array<ShopCustomer>>;
-  save(course: ShopCustomer): Promise<void>;
+  save: (customer: ShopCustomer) => Promise<void>
+  searchById: (id: string) => Promise<ShopCustomer>
+  searchAll: () => Promise<ShopCustomer[]>
+  update: (customer: ShopCustomer) => Promise<ShopCustomer>
+  remove: (id: string) => Promise<ShopCustomer>
 }
