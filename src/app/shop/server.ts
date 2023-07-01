@@ -8,9 +8,10 @@ import httpStatus from 'http-status'
 import Logger from '../../context/shared/domain/Logger'
 import { registerRoutes } from './routes'
 import cors from 'cors'
-import container from './dependency-injection';
+import {container} from './dependency-injection';
+import morgan from 'morgan'
 
-// Use compression in the LB
+// Use compression at LB level
 export class Server {
   private readonly express: express.Express
   readonly port: string
@@ -27,6 +28,10 @@ export class Server {
     this.express.use(helmet.noSniff())
     this.express.use(helmet.hidePoweredBy())
     this.express.use(helmet.frameguard({ action: 'deny' }))
+    this.express.use(morgan('dev', {
+      skip: () => process.env.NODE_ENV === 'test',
+      stream: { write: (message: string) => this.logger.info(message)}
+    }))
 
     const router = Router()
     router.use(cors())

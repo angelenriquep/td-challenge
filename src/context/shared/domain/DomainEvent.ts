@@ -1,4 +1,4 @@
-import { Uuid } from './Uuid'
+import { Ulid } from './Ulid'
 
 export abstract class DomainEvent {
   static EVENT_NAME: string
@@ -10,8 +10,8 @@ export abstract class DomainEvent {
 
   constructor (eventName: string, aggregateId: string, eventId?: string, occurredOn?: Date) {
     this.aggregateId = aggregateId
-    this.eventId = eventId || Uuid.random().value
-    this.occurredOn = (occurredOn != null) || new Date()
+    this.eventId = eventId || Ulid.toString()
+    this.occurredOn = occurredOn || new Date()
     this.eventName = eventName
   }
 

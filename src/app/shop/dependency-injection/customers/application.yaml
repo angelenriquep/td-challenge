@@ -1,8 +1,19 @@
 services:
-  Shop.Customer.domain.CustomerRepository:
-    class: ../../../../contexts/shop/customer/infrastructure/persistence/CustomerRepository
-    arguments: []
+  Shop.Customer.infra.InMemoryCustomerRepository:
+    class: ../../../../context/shop/customer/infra/persistence/InMemoryCustomerRepository
 
-  Mooc.Courses.application.CourseCreator:
-    class: ../../../../contexts/shop/customer/application/ShopCustomerCreator
-    arguments: ["@Shop.Customer.domain.CustomerRepository"]
+  Shop.Customer.application.CustomerCreator:
+    class: ../../../../context/shop/customer/application/CustomerCreator
+    arguments: ["@Shop.Customer.infra.InMemoryCustomerRepository"]
+
+  Shop.Customer.application.CustomerFinder:
+    class: ../../../../context/shop/customer/application/CustomerFinder
+    arguments: ["@Shop.Customer.infra.InMemoryCustomerRepository"]
+
+  Shop.Customer.application.CustomerRemover:
+    class: ../../../../context/shop/customer/application/CustomerRemover
+    arguments: ["@Shop.Customer.infra.InMemoryCustomerRepository"]
+
+  Shop.Customer.application.CustomerUpdater:
+    class: ../../../../context/shop/customer/application/CustomerUpdater
+    arguments: ["@Shop.Customer.infra.InMemoryCustomerRepository"]

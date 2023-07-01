@@ -1,10 +1,11 @@
 import { Server } from './server';
+import {loadConfig} from './dependency-injection';
 
-const port = process.env.PORT || '3000'
-const server = new Server(port);
+let server
 
 try {
   (async () => {
+    await loadConfig();
     const port = process.env.PORT || '3000'
     const server = new Server(port);
     await server.listen()

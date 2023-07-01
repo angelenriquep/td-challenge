@@ -22,7 +22,8 @@ class WinstonLogger implements Logger {
         winston.format.errors({ stack: true }),
         winston.format.splat(),
         winston.format.colorize(),
-        winston.format.simple()
+        winston.format.timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
+        winston.format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`+(info.splat!==undefined?`${info.splat}`:" "))
       ),
       transports: [
         new winston.transports.Console(),
