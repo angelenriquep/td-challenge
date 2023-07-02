@@ -2,7 +2,7 @@
   🎯 Shop using Hexagonal Architecture and DDD in Typescript 🎯
 </h1>
 
-# Build and Run
+## Build and Run
 
 A make file has been provided to install the dependencies and run the app.
 
@@ -56,8 +56,3 @@ In the development of this TypeScript file, the following assumptions were made:
 
 Please keep these assumptions in mind while working with the code and ensure
 that they align with your project requirements and objectives.
-
-## Usage
-
-Include instructions or code snippets here to help users understand how to use
-the TypeScript file effectively.
