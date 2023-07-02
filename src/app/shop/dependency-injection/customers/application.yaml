@@ -1,6 +1,9 @@
 services:
   Shop.Customer.infra.InMemoryCustomerRepository:
-    class: ../../../../context/shop/customer/infra/persistence/InMemoryCustomerRepository
+    class: ../../../../context/shared/infra/persistence/InMemoryCustomerRepository
+
+  Shop.Customer.infra.InMemoryAsyncEventBus:
+    class: ../../../../context/shared/infra/eventBus/InMemoryAsyncEventBus
 
   Shop.Customer.application.CustomerCreator:
     class: ../../../../context/shop/customer/application/CustomerCreator
@@ -17,3 +20,17 @@ services:
   Shop.Customer.application.CustomerUpdater:
     class: ../../../../context/shop/customer/application/CustomerUpdater
     arguments: ["@Shop.Customer.infra.InMemoryCustomerRepository"]
+
+  Shop.Customer.application.IncrementCustomerCreditOnCreditCreated:
+    class: ../../../../context/shop/customer/application/IncrementCustomerCreditOnCreditCreated
+    arguments: ["@Shop.Customer.application.CustomerUpdater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  Shop.CustomerCredit.application.CustomerCreditCreated:
+    class: ../../../../context/shop/customerCredit/application/CustomerCreditCreated
+    arguments:
+      [
+        "@Shop.Customer.infra.InMemoryCustomerRepository",
+        "@Shop.Customer.infra.InMemoryAsyncEventBus",
+      ]

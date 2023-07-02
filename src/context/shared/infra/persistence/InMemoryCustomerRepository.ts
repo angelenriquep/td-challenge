@@ -1,6 +1,8 @@
 import CustomerRepository from '../../domain/CustomerRepository'
-import { Customer } from '../../domain/Customer'
-import { Criteria } from '../../../../shared/domain/Criteria';
+import { Customer } from '../../../shop/customer/domain/Customer'
+import { Criteria } from '../../domain/Criteria';
+
+type CustomerProperty = keyof Customer;
 
 export default class InMemoryCustomerRepository implements CustomerRepository {
   customers: Customer[]
@@ -15,9 +17,31 @@ export default class InMemoryCustomerRepository implements CustomerRepository {
   }
 
   async matching(criteria: Criteria): Promise<Customer[]> {
-    const { filters, order } = criteria;
+    const { filters, order, limit, offset } = criteria;
 
-    const filteredCustomers = this.customers.filter((customer) => {
+    let filteredCustomers = this.customers;
+
+    if (filters.length > 0) {
+      filteredCustomers = this.applyFilters(filteredCustomers, filters);
+    }
+
+    if (order) {
+      filteredCustomers = this.applyOrder(filteredCustomers, order);
+    }
+
+    if (offset) {
+      filteredCustomers = filteredCustomers.slice(offset);
+    }
+
+    if (limit) {
+      filteredCustomers = filteredCustomers.slice(0, limit);
+    }
+
+    return filteredCustomers;
+  }
+
+  applyFilters(customers: Customer[], filters: any[]): Customer[] {
+    return customers.filter((customer) => {
       for (const filter of filters) {
         const { property, operator, value } = filter;
         if (!this.applyFilter(customer, property, operator, value)) {
@@ -26,26 +50,12 @@ export default class InMemoryCustomerRepository implements CustomerRepository {
       }
       return true;
     });
-
-    if (order) {
-      filteredCustomers.sort((a, b) => {
-        const { property, direction } = order;
-        const propA = a[property];
-        const propB = b[property];
-        if (propA < propB) {
-          return direction === 'asc' ? -1 : 1;
-        } else if (propA > propB) {
-          return direction === 'asc' ? 1 : -1;
-        }
-        return 0;
-      });
-    }
-
-    return filteredCustomers;
   }
 
-  applyFilter(customer: Customer, property: string, operator: string, value: any): boolean {
-    const propertyValue = customer[property];
+  applyFilter(customer: Customer, property: CustomerProperty, operator: string, value: any): boolean {
+    const primitiveCustomer = customer.toPrimitives()
+    // TODO: remove this any
+    const propertyValue = (primitiveCustomer as any)[property]
 
     switch (operator) {
       case '=':
@@ -63,6 +73,20 @@ export default class InMemoryCustomerRepository implements CustomerRepository {
       default:
         return false;
     }
+  }
+
+  applyOrder(customers: Customer[], order: string): Customer[] {
+    const [property, direction] = order.split(' ');
+    return customers.sort((a, b) => {
+      const propA = a[property as  CustomerProperty];
+      const propB = b[property as  CustomerProperty];
+      if (propA < propB) {
+        return direction === 'asc' ? -1 : 1;
+      } else if (propA > propB) {
+        return direction === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
   }
 
   async searchAll(): Promise<Customer[]> {

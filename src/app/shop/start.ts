@@ -1,11 +1,17 @@
 import { Server } from './server';
-import {loadConfig} from './dependency-injection';
+import {loadConfig, container} from './dependency-injection';
+import { DomainEventSubscribers} from '../../context/shared/infra/eventBus/DomainEventSubscribers';
 
 let server
 
+// TODO: improve this
 try {
   (async () => {
     await loadConfig();
+
+    const eventBus = container.get('Shop.Customer.infra.InMemoryAsyncEventBus');
+    eventBus.addSubscribers(DomainEventSubscribers.from(container));
+
     const port = process.env.PORT || '3000'
     const server = new Server(port);
     await server.listen()

@@ -1,33 +1,24 @@
-import {CustomerCounterId}  from './CustomerCounterId'
-import {CustomerCounterNumber}  from './CustomerCounterNumber'
 import { AggregateRoot } from '../../../shared/domain/AggregateRoot'
-import {CustomerId} from '../../../shared/domain/CustomerId'
+import { CustomerId } from '../../../shared/domain/CustomerId'
+import { CustomerCredit } from '../../../shared/domain/CustomerCredit'
 
-export class CustomerCredit extends AggregateRoot {
-  readonly id: CustomerCounterId;
-  private _credit: CustomerCounterNumber;
+export class Customer extends AggregateRoot {
+  readonly id: CustomerId
+  private credit: CustomerCredit
 
-  constructor(id: CustomerCounterId, credit: CustomerCounterNumber) {
-    super();
-    this.id = id;
-    this._credit = credit;
+  constructor (
+    id: CustomerId,
+    credit: CustomerCredit,
+  ) {
+    super()
+    this.id = id
+    this.credit = credit
   }
 
-  public get credit(): CustomerCounterNumber {
-    return this._credit;
-  }
-
-  increment(creditId: CustomerId) {
-    this._credit = this.credit.increment();
-    //this.record();
-  }
-
-
-  toPrimitives() {
+  toPrimitives () {
     return {
       id: this.id.value,
-      total: this.credit.value,
-    };
+      credit: this.credit.value,
+    }
   }
-
 }

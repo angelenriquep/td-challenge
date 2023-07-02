@@ -3,13 +3,13 @@ import { CustomerCreatedDate } from './CustomerCreatedDate'
 import { CustomerId } from '../../../shared/domain/CustomerId'
 import { CustomerName } from './CustomerName'
 import { CustomerEmail } from './CustomerEmail'
-import { CustomerCredit } from './CustomerCredit'
+import { CustomerCredit } from '../../../shared/domain/CustomerCredit'
 
 export class Customer extends AggregateRoot {
   readonly id: CustomerId
   readonly email: CustomerEmail
   readonly name: CustomerName
-  readonly credit: CustomerCredit
+  private credit: CustomerCredit
   readonly createdDate: CustomerCreatedDate
 
   constructor (
@@ -25,6 +25,10 @@ export class Customer extends AggregateRoot {
     this.email = email
     this.credit = credit
     this.createdDate = createdDate
+  }
+
+  public addCredit(credit: number) {
+    this.credit = new CustomerCredit(credit)
   }
 
   toPrimitives () {

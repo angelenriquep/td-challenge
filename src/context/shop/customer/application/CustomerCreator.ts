@@ -3,8 +3,8 @@ import { CustomerId } from '../../../shared/domain/CustomerId'
 import { CustomerEmail } from '../domain/CustomerEmail'
 import { CustomerName } from '../domain/CustomerName'
 import { CustomerCreatedDate } from '../domain/CustomerCreatedDate'
-import { CustomerCredit } from '../domain/CustomerCredit'
-import CustomerRepository from '../domain/CustomerRepository'
+import { CustomerCredit } from '../../../shared/domain/CustomerCredit'
+import CustomerRepository from '../../../shared/domain/CustomerRepository'
 
 export default class CustomerCreator {
   constructor (private readonly repository: CustomerRepository) { }

@@ -1,5 +1,5 @@
-import { Customer } from './Customer'
-import { Criteria } from '../../../shared/domain/Criteria';
+import { Customer } from '../../shop/customer/domain/Customer'
+import { Criteria } from './Criteria';
 
 // Keep interfaces always in api side, not client side, do not pollute the infra
 // with our domain problems

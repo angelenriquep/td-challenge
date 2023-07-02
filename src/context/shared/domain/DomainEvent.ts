@@ -1,21 +1,39 @@
 import { Ulid } from './Ulid'
 
 export abstract class DomainEvent {
-  static EVENT_NAME: string
-  static fromPrimitives: (...args: any[]) => any
-  readonly aggregateId: string
-  readonly eventId: string
-  readonly occurredOn: Date
-  readonly eventName: string
+  static EVENT_NAME: string;
+  static fromPrimitives: (params: {
+    aggregateId: string;
+    eventId: string;
+    occurredOn: Date;
+    attributes: DomainEventAttributes;
+  }) => DomainEvent;
 
-  constructor (eventName: string, aggregateId: string, eventId?: string, occurredOn?: Date) {
-    this.aggregateId = aggregateId
-    this.eventId = eventId || Ulid.toString()
-    this.occurredOn = occurredOn || new Date()
-    this.eventName = eventName
+  readonly aggregateId: string;
+  readonly eventId: string;
+  readonly occurredOn: Date;
+  readonly eventName: string;
+
+  // NB: Inline types help with compilation
+  constructor(params: { eventName: string; aggregateId: string; eventId?: string; occurredOn?: Date }) {
+    const { aggregateId, eventName, eventId, occurredOn } = params;
+    this.aggregateId = aggregateId;
+    this.eventId = eventId || Ulid.toString();
+    this.occurredOn = occurredOn || new Date();
+    this.eventName = eventName;
   }
 
-  abstract toPrimitive (): Object
+  abstract toPrimitives(): DomainEventAttributes;
 }
 
-export interface DomainEventClass { EVENT_NAME: string, fromPrimitives: (...args: any[]) => DomainEvent }
+export type DomainEventClass = {
+  EVENT_NAME: string;
+  fromPrimitives(params: {
+    aggregateId: string;
+    eventId: string;
+    occurredOn: Date;
+    attributes: DomainEventAttributes;
+  }): DomainEvent;
+};
+
+type DomainEventAttributes = any;
