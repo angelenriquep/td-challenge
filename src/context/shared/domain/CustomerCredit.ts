@@ -7,7 +7,7 @@ export class CustomerCredit {
 
   // TODO: Use joi for better validation?
   private ensureIsValidCredit (value: any): number {
-    if (valueinstanceof Number) {
+    if (value instanceof Number) {
       throw new Error('The Customer credit should be numeric')
     }
 

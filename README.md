@@ -1,5 +1,5 @@
 <h1 align="center">
-  🎯 Shop with Hexagonal Architecture and DDD in Typescript 🎯
+  🎯 Shop using Hexagonal Architecture and DDD in Typescript 🎯
 </h1>
 
 # Build and Run

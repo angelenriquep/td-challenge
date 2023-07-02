@@ -3,7 +3,7 @@ NODE_MODULES_BIN = ./node_modules/.bin
 SRC_DIR = ./src
 DIST_DIR = ./dist
 TEST_DIR = ./tests
-SERVER_FILE = ./dist/server.js
+SERVER_FILE = ./dist/src/app/shop/start.js
 
 # Install Node.js dependencies
 install:

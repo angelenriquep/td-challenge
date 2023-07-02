@@ -1,4 +1,5 @@
-import { ContainerBuilder, Definition } from 'node-dependency-injection'
+// import { ContainerBuilder, Definition } from 'node-dependency-injection'
+import { ContainerBuilder } from 'node-dependency-injection'
 import { DomainEvent } from '../../domain/DomainEvent'
 import { DomainEventSubscriber } from '../../domain/DomainEventSubscriber'
 

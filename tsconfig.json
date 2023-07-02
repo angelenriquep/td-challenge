@@ -19,6 +19,5 @@
   ],
   "exclude": [
     "node_modules",
-    "src/apps/backoffice/frontend"
   ]
 }

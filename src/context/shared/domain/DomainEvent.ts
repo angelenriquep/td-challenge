@@ -19,7 +19,7 @@ export abstract class DomainEvent {
     const { aggregateId, eventName, eventId, occurredOn } = params
     this.aggregateId = aggregateId
     this.eventId = eventId || Ulid.toString()
-    this.occurredOn = (occurredOn != null) || new Date()
+    this.occurredOn = occurredOn ? occurredOn : new Date()
     this.eventName = eventName
   }
 
