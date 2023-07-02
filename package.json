@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "SET NODE_ENV=production&&node ./dist/src/app/shop/start.js",
+    "start:tsc": "npx ts-node src/app/shop/start.ts",
     "dev": "nodemon src/app/shop/start.ts",
     "lint": "ts-standard",
     "tsc": "tsc",
