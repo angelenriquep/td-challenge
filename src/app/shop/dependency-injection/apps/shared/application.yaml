@@ -1,4 +1,0 @@
-services:
-  Shared.Logger:
-    class: ../../../../context/shared/infra/WinstonLogger
-    arguments: []

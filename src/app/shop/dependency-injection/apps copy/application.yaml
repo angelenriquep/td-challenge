@@ -1,8 +1,0 @@
-services:
-  Apps.Shop.controllers.CustomerController:
-    class: ../../controllers/CustomerController
-    arguments: []
-
-  Apps.Shop.controllers.CustomerCreditController:
-    class: ../../controllers/CustomerCreditController
-    arguments: []
