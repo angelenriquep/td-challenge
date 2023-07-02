@@ -1,6 +1,6 @@
-import { DomainEvent } from './DomainEvent';
+import { DomainEvent } from './DomainEvent'
 
 export interface EventBus {
-  publish(events: Array<DomainEvent>): Promise<void>;
-  addSubscribers(subscribers: any): void;
+  publish: (events: DomainEvent[]) => Promise<void>
+  addSubscribers: (subscribers: any) => void
 }

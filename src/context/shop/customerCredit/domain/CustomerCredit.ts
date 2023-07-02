@@ -4,11 +4,11 @@ import { CustomerCredit } from '../../../shared/domain/CustomerCredit'
 
 export class Customer extends AggregateRoot {
   readonly id: CustomerId
-  private credit: CustomerCredit
+  private readonly credit: CustomerCredit
 
   constructor (
     id: CustomerId,
-    credit: CustomerCredit,
+    credit: CustomerCredit
   ) {
     super()
     this.id = id
@@ -18,7 +18,7 @@ export class Customer extends AggregateRoot {
   toPrimitives () {
     return {
       id: this.id.value,
-      credit: this.credit.value,
+      credit: this.credit.value
     }
   }
 }

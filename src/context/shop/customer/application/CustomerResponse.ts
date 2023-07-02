@@ -1,16 +1,16 @@
-import { Customer } from '../domain/Customer';
+import { Customer } from '../domain/Customer'
 
 interface ICustomerResponse {
-  id: string;
-  name: string;
-  email: string;
-  createdDate: Date;
+  id: string
+  name: string
+  email: string
+  createdDate: Date
 }
 
 export class CustomerResponse {
-  public readonly customers: Array<ICustomerResponse>;
+  public readonly customers: ICustomerResponse[]
 
-  constructor(customers: Array<Customer>) {
-    this.customers = customers.map(customer => customer.toPrimitives());
+  constructor (customers: Customer[]) {
+    this.customers = customers.map(customer => customer.toPrimitives())
   }
 }

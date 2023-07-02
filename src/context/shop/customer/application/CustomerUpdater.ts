@@ -20,28 +20,27 @@ export default class CustomerUpdater {
     )
 
     const record = await this.repository.update(customer)
-    
+
     return record.toPrimitives()
   }
 
   // Idempotency ensured since we don increment, we just update hard
   // Side effect! State altered!
-  async addCredit(id: string, credit: number): Promise<void> {
+  async addCredit (id: string, credit: number): Promise<void> {
     const criteria = new Criteria([{ property: 'id', operator: '=', value: id }])
-      
-    const customer = await this.repository.matching(criteria);
-    
-    console.log(id, credit, customer)
+
+    const customer = await this.repository.matching(criteria)
+
     if (!customer) {
-      throw new Error (`No customer found for id <${id}>`)
+      throw new Error(`No customer found for id <${id}>`)
     }
 
     if (customer.length > 1) {
-      throw new Error (`Integrity error found for customer id <${id}>`)
+      throw new Error(`Integrity error found for customer id <${id}>`)
     }
 
     customer[0].addCredit(credit)
 
-    await this.repository.update(customer[0]);
+    await this.repository.update(customer[0])
   }
 }

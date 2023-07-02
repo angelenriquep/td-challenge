@@ -17,13 +17,14 @@ class WinstonLogger implements Logger {
 
   constructor () {
     this.logger = winston.createLogger({
+      silent: process.env.NODE_ENV === 'test',
       format: winston.format.combine(
         winston.format.prettyPrint(),
         winston.format.errors({ stack: true }),
         winston.format.splat(),
         winston.format.colorize(),
-        winston.format.timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
-        winston.format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`+(info.splat!==undefined?`${info.splat}`:" "))
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        winston.format.printf(info => `${info.timestamp} ${info.level}: ${info.message}` + (info.splat !== undefined ? `${info.splat}` : ' '))
       ),
       transports: [
         new winston.transports.Console(),

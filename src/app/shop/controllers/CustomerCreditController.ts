@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import httpStatus from 'http-status'
 import { ControllerCredit } from './ControllerCredit'
-import {container} from '../dependency-injection';
+import { container } from '../dependency-injection'
 
-const customerCreditCreated = container.get('Shop.CustomerCredit.application.CustomerCreditCreated');
+const customerCreditCreated = container.get('Shop.CustomerCredit.application.CustomerCreditCreated')
 
 export default class CustomerController implements ControllerCredit {
   async addCredit (req: Request, res: Response) {

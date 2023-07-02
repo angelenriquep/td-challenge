@@ -1,48 +1,48 @@
-import { DomainEvent } from '../../../shared/domain/DomainEvent';
+import { DomainEvent } from '../../../shared/domain/DomainEvent'
 
-type CustomerCreditCreatedDomainEventAttributes = {
-  readonly credit: number;
-};
+interface CustomerCreditCreatedDomainEventAttributes {
+  readonly credit: number
+}
 
 export class CustomerCreditDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME = 'customerCreadit.updated';
+  static readonly EVENT_NAME = 'customerCreadit.updated'
 
-  readonly credit: number;
+  readonly credit: number
 
-  constructor({
+  constructor ({
     aggregateId,
     eventId,
     credit,
-    occurredOn,
+    occurredOn
   }: {
-    aggregateId: string;
-    eventId?: string;
-    credit: number;
-    occurredOn?: Date;
+    aggregateId: string
+    eventId?: string
+    credit: number
+    occurredOn?: Date
   }) {
-    super({ eventName: CustomerCreditDomainEvent.EVENT_NAME, aggregateId, eventId, occurredOn });
-    this.credit = credit;
+    super({ eventName: CustomerCreditDomainEvent.EVENT_NAME, aggregateId, eventId, occurredOn })
+    this.credit = credit
   }
 
-  toPrimitives(): CustomerCreditCreatedDomainEventAttributes {
-    const { credit } = this;
+  toPrimitives (): CustomerCreditCreatedDomainEventAttributes {
+    const { credit } = this
     return {
-      credit,
-    };
+      credit
+    }
   }
 
-  static fromPrimitives(params: {
-    aggregateId: string;
-    attributes: CustomerCreditCreatedDomainEventAttributes;
-    eventId: string;
-    occurredOn: Date;
+  static fromPrimitives (params: {
+    aggregateId: string
+    attributes: CustomerCreditCreatedDomainEventAttributes
+    eventId: string
+    occurredOn: Date
   }): DomainEvent {
-    const { aggregateId, attributes, occurredOn, eventId } = params;
+    const { aggregateId, attributes, occurredOn, eventId } = params
     return new CustomerCreditDomainEvent({
       aggregateId,
       credit: attributes.credit,
       eventId,
       occurredOn
-    });
+    })
   }
 }

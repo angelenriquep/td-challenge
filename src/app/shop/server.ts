@@ -8,7 +8,7 @@ import httpStatus from 'http-status'
 import Logger from '../../context/shared/domain/Logger'
 import { registerRoutes } from './routes'
 import cors from 'cors'
-import {container} from './dependency-injection';
+import { container } from './dependency-injection'
 import morgan from 'morgan'
 
 // Use compression at LB level
@@ -20,7 +20,7 @@ export class Server {
 
   constructor (port: string) {
     this.port = port
-    this.logger = container.get('Shared.Logger');
+    this.logger = container.get('Shared.Logger')
     this.express = express()
     this.express.use(bodyParser.json())
     this.express.use(bodyParser.urlencoded({ extended: true }))
@@ -30,7 +30,7 @@ export class Server {
     this.express.use(helmet.frameguard({ action: 'deny' }))
     this.express.use(morgan('dev', {
       skip: () => process.env.NODE_ENV === 'test',
-      stream: { write: (message: string) => this.logger.info(message)}
+      stream: { write: (message: string) => this.logger.info(message) }
     }))
 
     const router = Router()
@@ -45,7 +45,7 @@ export class Server {
     })
   }
 
-  async listen(): Promise<void> {
+  async listen (): Promise<void> {
     return await new Promise(resolve => {
       this.httpServer = this.express.listen(this.port, () => {
         this.logger.info(
@@ -57,11 +57,11 @@ export class Server {
     })
   }
 
-  getHTTPServer() {
+  getHTTPServer () {
     return this.httpServer
   }
 
-  async stop(): Promise<void> {
+  async stop (): Promise<void> {
     return await new Promise((resolve, reject) => {
       if (this.httpServer != null) {
         this.httpServer.close(error => {
