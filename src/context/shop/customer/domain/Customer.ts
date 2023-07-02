@@ -27,6 +27,10 @@ export class Customer extends AggregateRoot {
     this.createdDate = createdDate
   }
 
+  public getCredit(): number {
+    return this.credit.value
+  }
+
   public addCredit(credit: number) {
     this.credit = new CustomerCredit(credit)
   }
