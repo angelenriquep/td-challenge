@@ -6,6 +6,10 @@
 
 A make file has been provided to install the dependencies and run the app.
 
+## Current deploy: <https://td-shop.onrender.com/>
+
+The project can be found here [Get Request](https://td-shop.onrender.com/v1/customers)
+
 ## Assumptions
 
 In the development of this TypeScript file, the following assumptions were made:
